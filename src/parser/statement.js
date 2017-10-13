@@ -1239,6 +1239,19 @@ export default class StatementParser extends ExpressionParser {
       this.expectPlugin("classProperties");
       this.next();
       node.value = this.parseMaybeAssign();
+
+      // Since new.target might be parsed in a potential arrow function, we
+      // need to do another check here.
+      if (
+        node.value.type === "MetaProperty" &&
+        node.value.meta.name === "new" &&
+        node.value.property.name === "target"
+      ) {
+        this.raise(
+          node.value.start,
+          "new.target can only be used in functions",
+        );
+      }
     } else {
       node.value = null;
     }
