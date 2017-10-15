@@ -5,7 +5,7 @@
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": ["error", { "trailingComma": "all" }],
+    "prettier/prettier": "error",
     "no-case-declarations": "error"
   },
   "env": {
